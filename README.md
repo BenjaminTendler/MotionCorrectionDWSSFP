@@ -15,4 +15,15 @@ This repository contains example software to:
 - To install environment in conda, run _conda create -n "MotionCorrectionDWSSFP" python=3.8.12 numpy=1.24.3 numba=0.58.1 scipy=1.10.1 matplotlib nibabel ipykernel_
 - Once installed, enter the environment with _conda activate MotionCorrectionDWSSFP_
 
+---
+
+# Example
+
+The below figure displays simulated DW-SSFP images incorporating (a) no motion, (b) translational motion, (c) rotational motion, (d) brain pulsatility & (e) pulsatility with a multi-shot readout and added Gaussian noise. 
+
+All images were synthesised using the software provided in this repository.
+
+![Example simulated motion-corrupted DW-SSFP images](https://github.com/BenjaminTendler/MotionCorrectionDWSSFP/blob/main/DWSSFP.png)
+
+
 
