@@ -1,6 +1,10 @@
 # MotionCorrectionDWSSFP
 
-This database contains example software to:
+This repository provides software associated with ongoing work performing motion-estimation in DW-SSFP. The software is subject to change at any moment whilst the project is under development. For any questions, please email benjamin.tendler@ndcn.ox.ac.uk.
+
+--- 
+
+This repository contains example software to:
 - Perform forward simulations of DW-SSFP timeseries data incorporating motion corruption in a single voxel, and subsequent parameter estimation from the DW-SSFP signal (VoxelSimulationExample.ipynb)
 - Perform forward simulations of DW-SSFP timeseries imaging data incorporating motion corruption (ImageSimulationExample.ipynb)
 
