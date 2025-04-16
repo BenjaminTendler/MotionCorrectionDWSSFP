@@ -7,7 +7,7 @@ This repository provides software associated with ongoing work performing motion
 This repository contains example software to:
 - Perform forward simulations of DW-SSFP timeseries data incorporating motion corruption in a single voxel, and subsequent parameter estimation from the DW-SSFP signal (_VoxelSimulation.ipynb_)
 - Perform forward simulations of DW-SSFP timeseries imaging data incorporating motion corruption (_ImageSimulation.ipynb_)
-- Perform parameter estimation from experimental DW-SSFP timeseries imaging data acquired in the Thalamus, Corpus callosum \& a CSF region (_VoxelSimulation_ExperimentalData.ipynb_)
+- Perform parameter estimation from experimental DW-SSFP timeseries imaging data acquired in a Thalamus, Corpus Callosum \& CSF voxel (_VoxelSimulation_ExperimentalData.ipynb_)
 
 # Software requirements
 
