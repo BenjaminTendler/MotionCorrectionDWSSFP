@@ -37,7 +37,7 @@ def EPGMotion(opt, MotionScale = None, Sequence = 'DW-SSFP'):
     # Create empty matrices
     pfx, pfy, pzx, pzy, fx, fy, zx, zy, F = MatrixInit(kOrder,nTR)
     #Define RF Matrix components
-    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArray(opt)
+    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArray(opt.copy())
     
     # Set initial conditions
     zx[0] = 1
@@ -55,10 +55,10 @@ def EPGMotion(opt, MotionScale = None, Sequence = 'DW-SSFP'):
             if Sequence == 'DW-SE':
                 if j == 0:
                     opt['alpha'] = np.asarray([90], dtype='f8')
-                    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArray(opt)
+                    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArray(opt.copy())
                 if j == 1:
                     opt['alpha'] = np.asarray([180], dtype='f8')
-                    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArray(opt)
+                    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArray(opt.copy())
             
             pfx[nn] = (a * fx[nn] + hb * fx[mm] + gb * fy[mm] + ec * zx[kk] + fc * zy[kk])
             pfy[nn] = (a * fy[nn] - hb * fy[mm] + gb * fx[mm] - fc * zx[kk] + ec * zy[kk])
@@ -129,7 +129,7 @@ def EPGMotionWholeImage(opt, MotionScale = None, Sequence = 'DW-SSFP'):
         optSlice['D'] = opt['D'][k:min(k+Spacing,ArrLength)]
         optSlice['T1'] = opt['T1'][k:min(k+Spacing,ArrLength)]
         optSlice['T2'] = opt['T2'][k:min(k+Spacing,ArrLength)]
-        optSlice['alpha'] = opt['alpha'][k:min(k+Spacing,ArrLength)]
+        optSlice['B1'] = opt['B1'][k:min(k+Spacing,ArrLength)]
         optSlice['Mask'] = opt['Mask'][k:min(k+Spacing,ArrLength)]
         F[k:min(k+Spacing,ArrLength),:] = EPGMotionWholeImageSlice(optSlice, MotionScale = MotionScale[k:min(k+Spacing,ArrLength),:], Sequence = Sequence)
     
@@ -162,9 +162,9 @@ def EPGMotionWholeImageSlice(opt, MotionScale=None, Sequence = 'DW-SSFP'):
     vLong = gamma_tau_G * opt['TR'] * MotionScale.transpose() * 10**-12
 
     # Create empty matrices
-    pfx, pfy, pzx, pzy, fx, fy, zx, zy, F = MatrixInitWholeImage(opt,kOrder,nTR)
+    pfx, pfy, pzx, pzy, fx, fy, zx, zy, F = MatrixInitWholeImage(opt.copy(),kOrder,nTR)
     #Define RF Matrix components
-    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArrayWholeImage(opt)
+    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArrayWholeImage(opt.copy())
     
     # Set initial conditions
     zx[0,:] = 1
@@ -181,11 +181,10 @@ def EPGMotionWholeImageSlice(opt, MotionScale=None, Sequence = 'DW-SSFP'):
             if Sequence == 'DW-SE':
                 if j == 0:
                     opt['alpha'] = np.asarray([90], dtype='f8')
-                    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArrayWholeImage(opt)
+                    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArrayWholeImage(opt.copy())
                 if j == 1:
                     opt['alpha'] = np.asarray([180], dtype='f8')
-                    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArrayWholeImage(opt)
-
+                    a, b, c, d, e, f, g, h, hb, gb, ec, fc = RFArrayWholeImage(opt.copy())
             pfx[nn,:] = (a * fx[nn,:] + hb * fx[mm,:] + gb * fy[mm,:] + ec * zx[kk,:] + fc * zy[kk,:])
             pfy[nn,:] = (a * fy[nn,:] - hb * fy[mm,:] + gb * fx[mm,:] - fc * zx[kk,:] + ec * zy[kk,:])
             pfx[mm,:] = (hb * fx[nn,:] + gb * fy[nn,:] + a * fx[mm,:] + ec * zx[kk,:] - fc * zy[kk,:])
