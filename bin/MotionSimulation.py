@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 def MotionOperator(opt,TranslationVec,RotationVec, CardiacVec, Mask, VoxDims, RandMotion=False, HeartRate=50, offset=0):
     ##
     #Initialise Matrices
-    T = np.zeros((*Mask.shape, opt['nTR'].astype(np.int32)[0]))
+    V = np.zeros((*Mask.shape, opt['nTR'].astype(np.int32)[0]))
 
     ##
     #Define Z-axis
@@ -19,8 +19,8 @@ def MotionOperator(opt,TranslationVec,RotationVec, CardiacVec, Mask, VoxDims, Ra
     #Perform evaluation per slice
     for k in range(Mask.shape[2]):
         if np.any( Mask[:,:,k]):
-            T[:,:,k,:] = MotionOperatorSlice(opt, TranslationVec, RotationVec, CardiacVec, Mask[:,:,k][:,:,np.newaxis], VoxDims, zLoc[k]+offset, RandMotion=False, HeartRate=50)[:,:,0,:]
-    return T
+            V[:,:,k,:] = MotionOperatorSlice(opt, TranslationVec, RotationVec, CardiacVec, Mask[:,:,k][:,:,np.newaxis], VoxDims, zLoc[k]+offset, RandMotion=False, HeartRate=50)[:,:,0,:]
+    return V
 
 ##
 #Estimate motion scaling based on input parameters - Translation and rotation
@@ -60,7 +60,7 @@ def MotionOperatorSlice(opt,TranslationVec,RotationVec, CardiacVec, Mask, VoxDim
     Translation = np.zeros((*Mask.shape, 3), dtype='f8')
     Rotation = np.zeros((*Mask.shape, 3), dtype='f8')
     RotCross = np.zeros((*Mask.shape, 3))
-    T = np.zeros((*Mask.shape,nTR))
+    V = np.zeros((*Mask.shape,nTR))
 
     ##
     #Perform motion estimation
@@ -82,12 +82,12 @@ def MotionOperatorSlice(opt,TranslationVec,RotationVec, CardiacVec, Mask, VoxDim
             RotMat = Rotxyz(Rotation, opt)
         
         ##
-        #Calculate T(t)
+        #Calculate V(t)
         RotCross[..., 0] = (opt['GOr'][1] * Rotation[..., 2] - opt['GOr'][2] * Rotation[..., 1]) * Position[..., 0]
         RotCross[..., 1] = (opt['GOr'][2] * Rotation[..., 0] - opt['GOr'][0] * Rotation[..., 2]) * Position[..., 1]
         RotCross[..., 2] = (opt['GOr'][0] * Rotation[..., 1] - opt['GOr'][1] * Rotation[..., 0]) * Position[..., 2]
         TranslationGrad = Translation * opt['GOr']
-        T[..., k] = np.sum(TranslationGrad + RotCross, axis=-1)
+        V[..., k] = np.sum(TranslationGrad + RotCross, axis=-1)
 
         ##
         #Update position based on Translational/Rotational motion
@@ -99,9 +99,9 @@ def MotionOperatorSlice(opt,TranslationVec,RotationVec, CardiacVec, Mask, VoxDim
     ##
     #Add impact of cardiac motion
     if np.any(CardiacVec) == True:
-        T = T + CardiacVelocity
+        V = V + CardiacVelocity
 
-    return T
+    return V
 
 @njit()
 def Rotxyz(Rotation,opt):

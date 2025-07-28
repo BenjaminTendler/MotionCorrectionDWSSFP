@@ -73,7 +73,7 @@ def EPGForwardModel(theta, opt, MotionScale):
 def EPGForwardModelFitting(x,theta,opt,MotionScale=None):
     theta=np.array([*theta])
     if MotionScale is None:
-        MotionScale = np.zeros((int(opt["nTR"]),opt['GArr'].shape[0]))
+        MotionScale = np.zeros((int(opt["nTR"][0]),opt['GArr'].shape[0]))
     return EPGForwardModel(theta,opt,MotionScale)
 
 def EPGForwardMotionModelFitting(x,theta,opt):
@@ -87,5 +87,5 @@ def EPGForwardMotionModelFittingJacobian(x,theta,opt):
 def EPGForwardModelFittingJacobian(x,theta,opt,MotionScale=None):
     theta=np.array([*theta])
     if MotionScale is None:
-        MotionScale = np.zeros((int(opt["nTR"]),opt['GArr'].shape[0]))
+        MotionScale = np.zeros((int(opt["nTR"][0]),opt['GArr'].shape[0]))
     return Jacobian_noMotionCorrection(theta, opt,MotionScale)
