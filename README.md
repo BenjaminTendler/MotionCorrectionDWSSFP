@@ -11,9 +11,9 @@ This repository contains example software to:
 
 # Software requirements
 
-- Software written in Python (3.8.12) 
-- Created using numpy (1.24.3), numba (0.58.1), scipy (1.10.1), matplotlib (3.7.5), nibabel (5.2.1) & integrated into jupyter notebooks
-- To install environment in conda, run _conda create -n "MotionCorrectionDWSSFP" python numpy numba scipy matplotlib nibabel ipykernel_
+- Software written in Python (3.13.2) 
+- Created using numpy (2.2.4), numba (0.61.2), scipy (1.15.2), matplotlib (3.10.0), nibabel (5.3.2) & integrated into jupyter notebooks
+- To install environment in conda, run _conda create -n "MotionCorrectionDWSSFP" python=3.13.2 numpy=2.2.4 numba=0.61.2 scipy=1.15.2 matplotlib=3.10.0 nibabel=5.3.2 ipykernel_
 - Once installed, enter the environment with _conda activate MotionCorrectionDWSSFP_
 
 ---
