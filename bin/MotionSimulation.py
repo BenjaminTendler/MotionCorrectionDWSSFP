@@ -30,7 +30,7 @@ def MotionOperatorSlice(opt,TranslationVec,RotationVec, CardiacVec, Mask, VoxDim
     """
     opt: Parameter Options (output of ParameterOptionsXXX.py)
     TranslationVec: 3 component vector describing the translation velocity [Vx, Vy, Vz] - units mm/s
-    RotationVec: 3 component vector describing the rotational velocity [Thetax, Thetay, Thetaz] - units rad/s
+    RotationVec: 3 component vector describing the rotational velocity [Omegax, Omegay, Omegaz] - units rad/s
     CardiacVec: 3 component vector describing the cardiac velocity [Vx, Vy, Vz] - units mm/s
     Mask: Sample Mask
     VoxDims: Voxel Dimensions (mm)
