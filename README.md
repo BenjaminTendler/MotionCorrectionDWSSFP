@@ -26,5 +26,9 @@ All images were synthesised using the software provided in this repository.
 
 ![Example simulated motion-corrupted DW-SSFP images](https://github.com/BenjaminTendler/MotionCorrectionDWSSFP/blob/main/DWSSFP.png)
 
+# Copyright
+
+Copyright, 2024, University of Oxford. All rights reserved
+
 
 
